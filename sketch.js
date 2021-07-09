@@ -5,9 +5,9 @@ const Constraint = Matter.Constraint;
 
 var engine, world;
 var backgroundImg;
-
+var X;
 var bg ;
-var Time;
+var Time = 0;
 
 function preload() {
    getBackgroundImg()
@@ -26,8 +26,8 @@ function draw(){
     noStroke();
     textSize(35);
     fill("white");
-    text("Time:"+ Time,width-300,50)
-
+    //Time = hour        
+    text("Time:"+ Time+X,width-300,50)
     Engine.update(engine);
 
     // write code to display time in correct format here
@@ -41,17 +41,37 @@ async function getBackgroundImg(){
     var responseJSON = await response.json();
     var datetime = responseJSON.datetime;
     hour = datetime.slice(11,13)
-     
+    Time = datetime.slice(11,16) 
     if (hour>=04 && hour<=06){
         bg = "sunrise1.png";
    }else if(hour>=06 && hour<=08){ 
         bg = "sunrise2.png";
-   }else if(hour>=23 && hour==0){
+   }else if(hour>=08 && hour<=10){ 
+        bg = "sunrise3.png";
+   }else if(hour>=10 && hour<=12){ 
+        bg = "sunrise4.png";
+   }else if(hour>=12 && hour<=14){ 
+        bg = "sunrise5.png";
+   }else if(hour>=14 && hour<=16){ 
+        bg = "sunrise6.png";
+   }else if(hour>=16 && hour<=18){ 
+        bg = "sunrise7.png";  
+   }else if(hour>=18 && hour<=20){ 
+        bg = "sunrise8.png";
+   }else if(hour>=20 && hour<=22){ 
+        bg = "sunrise9.png";
+   }else if(hour>=22 && hour<=24){
         bg = "sunset10.png";
    }else if(hour==0 && hour<=03){
         bg = "sunset11.png";
    }else{
         bg = "sunset12.png";
    }
+    if (hour>=12 && hour<=24){
+        X = "PM"
+    }
+    else{
+         X = "AM"
+    }
    backgroundImg = loadImage(bg);
 }
